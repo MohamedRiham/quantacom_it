@@ -16,38 +16,42 @@ class TaskController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-
     final user = authController.firebaseUser?.value;
     if (user != null) {
       bindTasks(user.uid);
     }
+    authController.firebaseUser?.listen((user) {
+      if (user != null) {
+        bindTasks(user.uid);
+      } else {
+        clear();
+      }
+    });
   }
 
   // Fetch tasks for the current user
   void bindTasks(String userId) {
-    isLoading.value = true;
+    try {
+      isLoading.value = true;
 
-    _firestore
-        .collection('tasks')
-        .where('user_id', isEqualTo: userId)
-        .snapshots()
-        .listen(
-          (snapshot) {
-            final tasks = snapshot.docs.map((doc) {
-              Task task = Task.fromMap(doc.data());
-
-              task.taskId = doc.id;
-              return task;
-            }).toList();
-
-            taskList.assignAll(tasks);
-            isLoading.value = false;
-          },
-          onError: (e) {
-            Get.snackbar("Error", e.toString());
-            isLoading.value = false;
-          },
-        );
+      taskList.bindStream(
+        _firestore
+            .collection('tasks')
+            .where('user_id', isEqualTo: userId)
+            .snapshots()
+            .map(
+              (snapshot) => snapshot.docs.map((doc) {
+                final task = Task.fromMap(doc.data());
+                task.taskId = doc.id;
+                return task;
+              }).toList(),
+            ),
+      );
+    } catch (e) {
+      Get.snackbar("Error", e.toString(), snackPosition: SnackPosition.BOTTOM);
+    } finally {
+      isLoading.value = false;
+    }
   }
 
   // Add a new task
@@ -96,5 +100,10 @@ class TaskController extends GetxController {
     } finally {
       isLoading.value = false;
     }
+  }
+
+  void clear() {
+    taskList.clear();
+    isLoading.value = false;
   }
 }

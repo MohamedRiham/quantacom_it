@@ -14,7 +14,6 @@ void main() async {
   Get.put(AuthController());
   Get.put(ThemeController());
   Get.lazyPut<TaskController>(() => TaskController());
-
   runApp(const MyApp());
 }
 
@@ -24,7 +23,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeController = Get.find<ThemeController>();
-    final authController = Get.find<AuthController>();
+    final authController = AuthController.instance;
+
     return Obx(
       () => GetMaterialApp(
         title: 'Flutter Demo',

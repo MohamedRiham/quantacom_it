@@ -1,6 +1,18 @@
 import 'package:flutter/material.dart';
 
 final lightTheme = ThemeData(
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: Colors.brown,
+      foregroundColor: Colors.white,
+      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+      textStyle: const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+  ),
   progressIndicatorTheme: ProgressIndicatorThemeData(color: Colors.black),
   useMaterial3: true,
   dividerTheme: DividerThemeData(color: Colors.black),
@@ -19,7 +31,18 @@ final lightTheme = ThemeData(
 );
 
 final darkTheme = ThemeData(
-
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: Colors.teal,
+      foregroundColor: Colors.black,
+      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+      textStyle: const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+  ),
   progressIndicatorTheme: ProgressIndicatorThemeData(color: Colors.white),
   useMaterial3: true,
   brightness: Brightness.dark,

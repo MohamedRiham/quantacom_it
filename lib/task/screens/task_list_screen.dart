@@ -56,8 +56,8 @@ class TaskListScreen extends StatelessWidget {
           ),
           child: const Icon(
             Icons.add,
-            color: Colors.white, // icon color
-            size: 28, // make it bigger
+            color: Colors.white,
+            size: 28,
           ),
         ),
       ),

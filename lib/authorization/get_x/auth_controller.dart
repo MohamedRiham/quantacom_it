@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:quantacom_it/authorization/models/user_details.dart';
+import 'package:quantacom_it/authorization/screens/login.dart';
+import 'package:quantacom_it/task/get_x/task_controller.dart';
 
 class AuthController extends GetxController {
   static AuthController get instance => Get.find();
+  get taskController => TaskController.instance;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   Rx<bool> isLoading = false.obs;
@@ -13,6 +16,7 @@ class AuthController extends GetxController {
   @override
   void onReady() {
     super.onReady();
+
     firebaseUser = _auth.currentUser.obs;
     firebaseUser?.bindStream(_auth.authStateChanges());
   }
@@ -25,18 +29,8 @@ class AuthController extends GetxController {
         email: details.emailAddress,
         password: details.password,
       );
-      Get.snackbar(
-        "Success",
-        "Account created successfully!",
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.green,
-        colorText: Colors.white,
-      );
-      isLoading.value = false;
       return true;
     } on FirebaseAuthException catch (e) {
-      isLoading.value = false;
-
       Get.snackbar(
         "Error",
         e.message ?? "An error occurred",
@@ -46,8 +40,6 @@ class AuthController extends GetxController {
       );
       return false;
     } catch (e) {
-      isLoading.value = false;
-
       Get.snackbar(
         "Error",
         e.toString(),
@@ -56,6 +48,8 @@ class AuthController extends GetxController {
         colorText: Colors.white,
       );
       return false;
+    } finally {
+      isLoading.value = false;
     }
   }
 
@@ -67,18 +61,8 @@ class AuthController extends GetxController {
         email: details.emailAddress,
         password: details.password,
       );
-      Get.snackbar(
-        "Success",
-        "Logged in successfully!",
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.green,
-        colorText: Colors.white,
-      );
-      isLoading.value = false;
       return true;
     } on FirebaseAuthException catch (e) {
-      isLoading.value = false;
-
       Get.snackbar(
         "Error",
         e.message ?? "An error occurred",
@@ -88,8 +72,6 @@ class AuthController extends GetxController {
       );
       return false;
     } catch (e) {
-      isLoading.value = false;
-
       Get.snackbar(
         "Error",
         e.toString(),
@@ -98,6 +80,8 @@ class AuthController extends GetxController {
         colorText: Colors.white,
       );
       return false;
+    } finally {
+      isLoading.value = false;
     }
   }
 
@@ -107,17 +91,10 @@ class AuthController extends GetxController {
       isLoading.value = true;
 
       await _auth.signOut();
-      Get.snackbar(
-        "Success",
-        "Logged out successfully!",
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.green,
-        colorText: Colors.white,
-      );
-      isLoading.value = false;
-    } catch (e) {
-      isLoading.value = false;
 
+      taskController.clear();
+      Get.offAll(() => LoginScreen());
+    } catch (e) {
       Get.snackbar(
         "Error",
         e.toString(),
@@ -125,6 +102,8 @@ class AuthController extends GetxController {
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );
+    } finally {
+      isLoading.value = false;
     }
   }
 }

@@ -50,8 +50,9 @@ class TaskCard extends StatelessWidget {
                       onPressed: () {
                         showDeleteDialog(
                           onSubmitted: () async {
-                            await taskController.deleteTask(task.taskId ?? '');
                             Get.back();
+
+                            await taskController.deleteTask(task.taskId ?? '');
                           },
                         );
                       },
