@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class SearchBox extends StatelessWidget {
   final String hiddenText;
   final Function(String) onChange;
-  bool? enabled;
-   SearchBox({
+final   bool? enabled;
+   const SearchBox({
     super.key,
     required this.hiddenText,
 this.enabled,

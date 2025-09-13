@@ -5,18 +5,22 @@ class CustomDropdown extends StatelessWidget {
   final Function(String?) onChanged;
   final List<String> items;
   final String hintLabel;
+  final bool? enabled;
   const CustomDropdown({
     super.key,
     required this.value,
     required this.onChanged,
     required this.items,
     required this.hintLabel,
+    this.enabled,
   });
 
   @override
   Widget build(BuildContext context) {
     return DropdownButton(
-      onChanged: onChanged,
+      barrierDismissible: false,
+
+      onChanged: enabled == true ? onChanged : null,
 
       items: items
           .map((val) => DropdownMenuItem(value: val, child: Text(val)))

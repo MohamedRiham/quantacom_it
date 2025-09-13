@@ -59,4 +59,5 @@ class DefaultFirebaseOptions {
     projectId: 'quantacom-it',
     storageBucket: 'quantacom-it.firebasestorage.app',
   );
+
 }

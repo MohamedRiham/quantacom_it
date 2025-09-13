@@ -11,8 +11,9 @@ import 'package:quantacom_it/task/screens/task_list_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  Get.put(AuthController());
-  Get.put(ThemeController());
+
+  Get.put(AuthController(), permanent: true);
+  Get.put(ThemeController(), permanent: true);
   Get.lazyPut<TaskController>(() => TaskController());
   runApp(const MyApp());
 }
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
 
     return Obx(
       () => GetMaterialApp(
-        title: 'Flutter Demo',
+        title: 'quantacom_it_practical',
         debugShowCheckedModeBanner: false,
         darkTheme: darkTheme,
         themeMode: themeController.currentTheme,

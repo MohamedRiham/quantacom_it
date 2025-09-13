@@ -45,15 +45,40 @@ class TaskListScreen extends StatelessWidget {
                       },
                     ),
                     const SizedBox(height: 12),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(8),
+                        boxShadow: [
+                          BoxShadow(blurRadius: 4, offset: const Offset(0, 2)),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Select Status',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 8),
+                          CustomDropdown(
+                            enabled:
+                                !taskController.isLoading.value &&
+                                taskController.rowTaskList.isNotEmpty,
 
-                    CustomDropdown(
-                      value: taskController.statusFilter.value,
-                      onChanged: (newValue) {
-                         taskController.statusFilter.value = newValue ?? 'All';
-                        taskController.applyFilters();
-                      },
-                      items: ['All', 'Pending', 'Completed'],
-                      hintLabel: 'Select Status',
+                            value: taskController.statusFilter.value,
+                            onChanged: (newValue) {
+                              taskController.statusFilter.value =
+                                  newValue ?? 'All';
+                              taskController.applyFilters();
+                            },
+                            items: ['All', 'Pending', 'Completed'],
+                            hintLabel: 'Select Status',
+                          ),
+                        ],
+                      ),
                     ),
                     const SizedBox(height: 12),
 
@@ -64,6 +89,7 @@ class TaskListScreen extends StatelessWidget {
                     else
                       SizedBox(
                         height: 400,
+
                         child: ListView.builder(
                           padding: const EdgeInsets.all(16),
                           itemCount: taskController.taskList.length,
