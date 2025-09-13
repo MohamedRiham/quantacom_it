@@ -7,8 +7,10 @@ import 'package:quantacom_it/task/models/task.dart';
 class TaskController extends GetxController {
   static TaskController get instance => Get.find();
   final authController = AuthController.instance;
-
+  RxList<Task> rowTaskList = <Task>[].obs;
+  RxString statusFilter = 'All'.obs;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  RxString searchedValue = ''.obs;
 
   RxList<Task> taskList = <Task>[].obs;
   RxBool isLoading = false.obs;
@@ -39,13 +41,19 @@ class TaskController extends GetxController {
             .collection('tasks')
             .where('user_id', isEqualTo: userId)
             .snapshots()
-            .map(
-              (snapshot) => snapshot.docs.map((doc) {
+            .map((snapshot) {
+              final tasks = snapshot.docs.map((doc) {
                 final task = Task.fromMap(doc.data());
                 task.taskId = doc.id;
+                statusFilter.value = 'All';
+                searchedValue.value = '';
                 return task;
-              }).toList(),
-            ),
+              }).toList();
+
+              rowTaskList.value = tasks;
+
+              return tasks;
+            }),
       );
     } catch (e) {
       Get.snackbar("Error", e.toString(), snackPosition: SnackPosition.BOTTOM);
@@ -100,6 +108,21 @@ class TaskController extends GetxController {
     } finally {
       isLoading.value = false;
     }
+  }
+
+  void applyFilters() {
+    List<Task> tempList = rowTaskList.value;
+    if (searchedValue.isNotEmpty) {
+      tempList = tempList.where((task) {
+        return task.title.toLowerCase().contains(searchedValue.toLowerCase());
+      }).toList();
+    }
+    if (statusFilter != 'All') {
+      tempList = tempList.where((task) {
+        return task.status == statusFilter.value;
+      }).toList();
+    }
+    taskList.value = tempList;
   }
 
   void clear() {

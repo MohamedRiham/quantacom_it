@@ -54,7 +54,7 @@ class RegisterScreen extends StatelessWidget {
                           CustomTextField(
                             controller: passwordController,
                             hintText: 'Password',
-                            icon: Icons.lock,
+                            icon: Icons.password,
                             keyboardType: TextInputType.visiblePassword,
                             isPassword: true,
                           ),
@@ -77,6 +77,10 @@ class RegisterScreen extends StatelessWidget {
                                   } else {
                                     return;
                                   }
+                                } else {
+                                  emailController.text = "";
+                                  passwordController.text = "";
+                                  return;
                                 }
                               },
                               child: const Text(

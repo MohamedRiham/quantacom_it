@@ -1,16 +1,47 @@
-# quantacom_it
+# Task Management App
 
-A new Flutter project.
+This repository contains a **Flutter Task Management App** with Firebase backend. Users can create, update, delete, and filter tasks by status and search.  
 
-## Getting Started
+--- 
 
-This project is a starting point for a Flutter application.
+## 🛠 Features
 
-A few resources to get you started if this is your first Flutter project:
+- Add, update, delete tasks
+- Search tasks by title
+- Filter tasks by status: All, Pending, Completed
+- Real-time updates using Firebase Firestore
+- Simple authentication with email and password
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## ⚡ Backend
+
+The backend is powered by **Firebase Functions and Firestore**.  
+
+**No setup is required for the backend**—all functions are already deployed and connected to the Flutter app.
+
+---
+
+## 📱 Flutter App Setup
+
+1. **Clone the repository:**
+
+```bash
+git clone https://github.com/MohamedRiham/quantacom_it
+cd <repository-folder>
+
+2. Install dependencies:
+flutter pub get
+
+3.  Run the app:
+flutter run
+Make sure you have a connected device or emulator running
+
+---
+
+## Test Credentials
+You can log in using the following accou    nts, or register a new account using the **Register Screen**:
+Email: mohomedriham7000@gmail.com       
+Password: 123456
+Email: mohomed@gmail.com
+Password: 123466

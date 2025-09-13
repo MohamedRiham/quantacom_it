@@ -48,8 +48,8 @@ class LoginScreen extends StatelessWidget {
                           CustomTextField(
                             controller: emailController,
                             hintText: 'Email',
-                            icon: Icons.person,
-                            keyboardType: TextInputType.name,
+                            icon: Icons.email,
+                            keyboardType: TextInputType.emailAddress,
                           ),
                           const Align(
                             alignment: Alignment.centerLeft,
@@ -83,6 +83,10 @@ class LoginScreen extends StatelessWidget {
                                   } else {
                                     return;
                                   }
+                                } else {
+                                  emailController.text = "";
+                                  passwordController.text = "";
+                                  return;
                                 }
                               },
                               child: const Text(

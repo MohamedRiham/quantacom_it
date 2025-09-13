@@ -3,14 +3,14 @@ class Task {
   final String userId;
   String title;
   String description;
-  bool isCompleted;
+  String status;
 
   Task({
     this.taskId,
     required this.userId,
     required this.title,
     required this.description,
-    this.isCompleted = false,
+    this.status = 'Pending',
   });
 
   Map<String, dynamic> toMap() {
@@ -18,7 +18,7 @@ class Task {
       'user_id': userId,
       'title': title,
       'description': description,
-      'is_completed': isCompleted,
+      'status': status,
     };
   }
 
@@ -27,7 +27,7 @@ class Task {
       userId: map['user_id'] as String,
       title: map['title'] as String,
       description: map['description'] as String,
-      isCompleted: map['is_completed'] as bool,
+      status: map['status'] as String,
     );
   }
 }

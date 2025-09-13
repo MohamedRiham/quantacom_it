@@ -73,7 +73,7 @@ class TaskFormScreen extends StatelessWidget {
                             title: titleController.text.trim(),
                             description: descriptionController.text.trim(),
                             taskId: oldTask!.taskId,
-                            isCompleted: oldTask!.isCompleted,
+                            status: oldTask!.status,
                           );
                           await taskController.updateTask(newTask);
                         } else {

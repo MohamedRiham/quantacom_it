@@ -32,18 +32,19 @@ class TaskCard extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
-                    decoration: task.isCompleted
+                    decoration: task.status == 'Completed'
                         ? TextDecoration.lineThrough
                         : TextDecoration.none,
                   ),
                 ),
                 Row(
                   children: [
-                    IconButton(onPressed: () {
-
-                      Get.to(() => TaskFormScreen(oldTask: task));
-
-                    }, icon: Icon(Icons.edit)),
+                    IconButton(
+                      onPressed: () {
+                        Get.to(() => TaskFormScreen(oldTask: task));
+                      },
+                      icon: Icon(Icons.edit),
+                    ),
                     const SizedBox(width: 5),
 
                     IconButton(
@@ -67,7 +68,7 @@ class TaskCard extends StatelessWidget {
             Text(
               task.description,
               style: TextStyle(
-                fontStyle: task.isCompleted
+                fontStyle: task.status == 'Completed'
                     ? FontStyle.italic
                     : FontStyle.normal,
               ),
@@ -78,7 +79,9 @@ class TaskCard extends StatelessWidget {
               alignment: Alignment.bottomRight,
               child: GestureDetector(
                 onTap: () async {
-                  task.isCompleted = !task.isCompleted;
+                  task.status = task.status == 'Pending'
+                      ? 'Completed'
+                      : 'Pending';
                   await taskController.updateTask(task);
                 },
                 child: Container(
@@ -87,11 +90,13 @@ class TaskCard extends StatelessWidget {
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                    color: task.isCompleted ? Colors.green : Colors.orange,
+                    color: task.status == 'Completed'
+                        ? Colors.green
+                        : Colors.orange,
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
                       BoxShadow(
-                        color: (task.isCompleted
+                        color: (task.status == 'Completed'
                             ? Colors.green
                             : Colors.orange),
                         blurRadius: 6,
@@ -104,13 +109,15 @@ class TaskCard extends StatelessWidget {
 
                     children: [
                       Icon(
-                        task.isCompleted ? Icons.check_circle : Icons.pending,
+                        task.status == 'Completed'
+                            ? Icons.check_circle
+                            : Icons.pending,
                         color: Colors.white,
                         size: 18,
                       ),
                       const SizedBox(width: 6),
                       Text(
-                        task.isCompleted ? "Completed" : "Pending",
+                        task.status ,
                         style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
