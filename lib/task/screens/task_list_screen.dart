@@ -60,7 +60,10 @@ class TaskListScreen extends StatelessWidget {
                         children: [
                           const Text(
                             'Select Status',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white
+                            ),
                           ),
                           const SizedBox(height: 8),
                           CustomDropdown(
