@@ -8,7 +8,7 @@ import 'package:quantacom_it/common/widgets/custom_scaffold.dart';
 
 class TaskFormScreen extends StatelessWidget {
   final Task? oldTask;
-  TaskFormScreen({this.oldTask, super.key});
+   TaskFormScreen({this.oldTask, super.key});
 
   final formKey = GlobalKey<FormState>();
   final titleController = TextEditingController();

@@ -62,7 +62,7 @@ class TaskListScreen extends StatelessWidget {
                             'Select Status',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Colors.white
+                              color: Colors.white,
                             ),
                           ),
                           const SizedBox(height: 8),

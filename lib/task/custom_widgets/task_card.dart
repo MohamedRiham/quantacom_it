@@ -41,7 +41,7 @@ class TaskCard extends StatelessWidget {
                   children: [
                     IconButton(
                       onPressed: () {
-                        Get.to(() => TaskFormScreen(oldTask: task));
+                        Get.to(() =>  TaskFormScreen(oldTask: task));
                       },
                       icon: Icon(Icons.edit),
                     ),
@@ -117,7 +117,7 @@ class TaskCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 6),
                       Text(
-                        task.status ,
+                        task.status,
                         style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
